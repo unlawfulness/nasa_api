@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:nasa_api/screens/home.dart';
+import 'package:nasa_api/screens/picsumPage.dart';
 //import 'package:nasa_api/screens/image_preview.dart';
 
 void main() {
@@ -11,7 +12,7 @@ void main() {
     initialRoute: '/',
     routes: {
       '/': (context) => const Home(),
-      //'/image_priview': (context) => ImagePriview(),
+      '/picsumPage': (context) => PicsumPage(),
     },
   ));
 }

@@ -7,20 +7,20 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:nasa_api/screens/image_preview.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class PicsumPage extends StatefulWidget {
+  const PicsumPage({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<PicsumPage> createState() => _PicsumPage();
 }
 
-class _HomeState extends State<Home> {
+class _PicsumPage extends State<PicsumPage> {
 
   final List<Widget> _imageFromAPI = [];
 
   void getDataFromAPI() async {
 
-    var url = Uri.parse('https://api.nasa.gov/planetary/apod?api_key=d1da9Wdg6K081MX0zwVNQZvbMmrpUfsJephBfVbv&count=10');
+    var url = Uri.parse('https://picsum.photos/v2/list?page=2&limit=100');
     var response = await http.get(url);
     // print('Response status: ${response.statusCode}');
     // print('Response body: ${response.body}');
@@ -50,15 +50,14 @@ class _HomeState extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ImagePriview(imageURL: dat['url'], title: dat['title'],),
+                    builder: (context) => ImagePriview(imageURL: dat['download_url'], title: dat['author'],),
                   ),
                 );
               },
               child: Column(
                 children: [
-                  Image.network(dat['url'],
+                  Image.network(dat['download_url'],
                   ),
-                  Text(dat['date']),
                   Text(dat['title']),
                 ],
               ),
@@ -85,7 +84,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    String _title = 'Image from NASA API';
+    String _title = 'Image from Lorem Picsum';
 
     return Scaffold(
         bottomNavigationBar: CurvedNavigationBar(
@@ -103,47 +102,47 @@ class _HomeState extends State<Home> {
             }
           },
         ),
-      body: RefreshIndicator(
-        onRefresh: () {
-            setState(() {
-              getDataFromAPI();
-            });
-          return Future.delayed(
-            Duration(seconds: 0));
-        },
-        child: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          SliverAppBar(
-            title: Text(_title),
-            actions: [
-              IconButton(onPressed: (){
-                setState(() {
-                  getDataFromAPI();
-                });
-              }, 
-              icon: const Icon(Icons.autorenew)),
-            ],
-          ),
-          SliverList(
-            delegate:SliverChildListDelegate(
-            [
-              Container(
-                margin: const EdgeInsets.all(10.0),
-                width: double.infinity,
-                child:
-                Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: _imageFromAPI,
+        body: RefreshIndicator(
+            onRefresh: () {
+              setState(() {
+                getDataFromAPI();
+              });
+              return Future.delayed(
+                  Duration(seconds: 0));
+            },
+            child: CustomScrollView(
+                physics: const BouncingScrollPhysics(),
+                slivers: [
+                  SliverAppBar(
+                    title: Text(_title),
+                    actions: [
+                      IconButton(onPressed: (){
+                        setState(() {
+                          getDataFromAPI();
+                        });
+                      },
+                          icon: const Icon(Icons.autorenew)),
+                    ],
+                  ),
+                  SliverList(
+                    delegate:SliverChildListDelegate(
+                      [
+                        Container(
+                          margin: const EdgeInsets.all(10.0),
+                          width: double.infinity,
+                          child:
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: _imageFromAPI,
+                          ),
                         ),
+                      ],
                     ),
-                  ],
-                ),
-              )
-            ]
-          )
-    )
+                  )
+                ]
+            )
+        )
     );
   }
 }
