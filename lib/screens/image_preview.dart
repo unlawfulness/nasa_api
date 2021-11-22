@@ -26,7 +26,8 @@ class ImagePriview extends StatelessWidget {
         onPressed: () async {
           try {
             // Saved with this method.
-            var imageId = await ImageDownloader.downloadImage(imageURL);
+            var imageId = await ImageDownloader.downloadImage(imageURL,
+            destination: AndroidDestinationType.directoryPictures);
             if (imageId == null) {
               return;
             }
