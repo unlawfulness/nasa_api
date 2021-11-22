@@ -22,4 +22,4 @@ It consists of 2 screens:
  # 2. ![ExlNHmlHgQM](https://user-images.githubusercontent.com/60977945/142928233-01489327-a0d4-405f-860b-653889822bf4.jpg)
   I passing on second screen parametrs : title, imageUrl
   and showing a preview image.
-  Same way this screen have a downloal button, but now it not working =(.
+  Same way this screen have a downloal button.
