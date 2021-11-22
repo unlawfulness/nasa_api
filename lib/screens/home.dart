@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, must_call_super
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -13,7 +15,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  List<Widget> _imageFromAPI = [];
+  final List<Widget> _imageFromAPI = [];
 
   void getDataFromAPI() async {
 
@@ -33,13 +35,14 @@ class _HomeState extends State<Home> {
             ElevatedButton(
               style: ButtonStyle(
                 //shape: MaterialStateProperty.all(),
-                padding: MaterialStateProperty.all(EdgeInsets.all(2)),
+                padding: MaterialStateProperty.all(const EdgeInsets.all(2)),
                 backgroundColor: MaterialStateProperty.all(Colors.blue),
                 // <-- Button color
                 overlayColor: MaterialStateProperty.resolveWith<Color?>((
                     states) {
-                  if (states.contains(MaterialState.pressed))
-                    return Colors.tealAccent; // <-- Splash color
+                  if (states.contains(MaterialState.pressed)) {
+                    return Colors.tealAccent;
+                  } // <-- Splash color
                 }),
               ),
               onPressed: () {
@@ -59,7 +62,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            Padding(padding: EdgeInsets.all(8.0),),
+            const Padding(padding: EdgeInsets.all(8.0),),
           ],);
 
         _imageFromAPI.add(elem);
@@ -84,7 +87,15 @@ class _HomeState extends State<Home> {
     String _title = 'Image from NASA API';
 
     return Scaffold(
-      body: CustomScrollView(
+      body: RefreshIndicator(
+        onRefresh: () {
+            setState(() {
+              getDataFromAPI();
+            });
+          return Future.delayed(
+            Duration(seconds: 0));
+        },
+        child: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
@@ -94,7 +105,8 @@ class _HomeState extends State<Home> {
                 setState(() {
                   getDataFromAPI();
                 });
-              }, icon: Icon(Icons.autorenew)),
+              }, 
+              icon: const Icon(Icons.autorenew)),
             ],
           ),
           SliverList(
@@ -115,6 +127,7 @@ class _HomeState extends State<Home> {
               )
             ]
           )
+    )
     );
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_downloader/image_downloader.dart';
@@ -20,7 +22,7 @@ class ImagePriview extends StatelessWidget {
         child: Image.network(imageURL),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.download),
+        child: const Icon(Icons.download),
         onPressed: () async {
           try {
             // Saved with this method.
@@ -30,10 +32,10 @@ class ImagePriview extends StatelessWidget {
             }
 
             // Below is a method of obtaining saved image information.
-            var fileName = await ImageDownloader.findName(imageId);
-            var path = await ImageDownloader.findPath(imageId);
-            var size = await ImageDownloader.findByteSize(imageId);
-            var mimeType = await ImageDownloader.findMimeType(imageId);
+            // var fileName = await ImageDownloader.findName(imageId);
+            // var path = await ImageDownloader.findPath(imageId);
+            // var size = await ImageDownloader.findByteSize(imageId);
+            // var mimeType = await ImageDownloader.findMimeType(imageId);
           } on PlatformException catch (error) {
             print(error);
           }

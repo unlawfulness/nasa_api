@@ -1,9 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:nasa_api/screens/home.dart';
-import 'package:nasa_api/screens/image_preview.dart';
-
-final Color darkBlue = Color.fromARGB(255, 18, 32, 47);
+//import 'package:nasa_api/screens/image_preview.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -12,7 +10,7 @@ void main() {
     ),
     initialRoute: '/',
     routes: {
-      '/': (context) => Home(),
+      '/': (context) => const Home(),
       //'/image_priview': (context) => ImagePriview(),
     },
   ));
