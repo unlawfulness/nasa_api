@@ -2,6 +2,7 @@
 //фф
 import 'dart:convert';
 
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:nasa_api/screens/image_preview.dart';
@@ -14,12 +15,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   final List<Widget> _imageFromAPI = [];
 
   void getDataFromAPI() async {
-
-    var url = Uri.parse('https://api.nasa.gov/planetary/apod?api_key=d1da9Wdg6K081MX0zwVNQZvbMmrpUfsJephBfVbv&count=10');
+    var url = Uri.parse(
+        'https://api.nasa.gov/planetary/apod?api_key=d1da9Wdg6K081MX0zwVNQZvbMmrpUfsJephBfVbv&count=10');
     var response = await http.get(url);
     // print('Response status: ${response.statusCode}');
     // print('Response body: ${response.body}');
@@ -38,8 +38,8 @@ class _HomeState extends State<Home> {
                 padding: MaterialStateProperty.all(const EdgeInsets.all(2)),
                 backgroundColor: MaterialStateProperty.all(Colors.blue),
                 // <-- Button color
-                overlayColor: MaterialStateProperty.resolveWith<Color?>((
-                    states) {
+                overlayColor:
+                    MaterialStateProperty.resolveWith<Color?>((states) {
                   if (states.contains(MaterialState.pressed)) {
                     return Colors.tealAccent;
                   } // <-- Splash color
@@ -49,25 +49,32 @@ class _HomeState extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ImagePriview(imageURL: dat['url'], title: dat['title'],),
+                    builder: (context) => ImagePriview(
+                      imageURL: dat['url'],
+                      title: dat['title'],
+                    ),
                   ),
                 );
               },
               child: Column(
                 children: [
-                  Image.network(dat['url'],
+                  Image.network(
+                    dat['url'],
                   ),
                   Text(dat['date']),
                   Text(dat['title']),
                 ],
               ),
             ),
-            const Padding(padding: EdgeInsets.all(8.0),),
-          ],);
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+            ),
+          ],
+        );
 
         _imageFromAPI.add(elem);
       }
-    }else {
+    } else {
       print('ERROR');
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
@@ -83,51 +90,56 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
     String _title = 'Image from NASA API';
 
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () {
-            setState(() {
-              getDataFromAPI();
-            });
-          return Future.delayed(
-            Duration(seconds: 0));
-        },
-        child: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          SliverAppBar(
-            title: Text(_title),
-            actions: [
-              IconButton(onPressed: (){
-                setState(() {
-                  getDataFromAPI();
-                });
-              }, 
-              icon: const Icon(Icons.autorenew)),
-            ],
-          ),
-          SliverList(
-            delegate:SliverChildListDelegate(
-            [
-              Container(
-                margin: const EdgeInsets.all(10.0),
-                width: double.infinity,
-                child:
-                Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: _imageFromAPI,
+        bottomNavigationBar: CurvedNavigationBar(
+          backgroundColor: Colors.blueAccent,
+          items: const <Widget>[
+            Icon(Icons.add, size: 30),
+            Icon(Icons.list, size: 30),
+          ],
+          onTap: (index) {
+            //Handle button tap
+          },
+        ),
+        body: RefreshIndicator(
+            onRefresh: () {
+              setState(() {
+                getDataFromAPI();
+              });
+              return Future.delayed(const Duration(seconds: 0));
+            },
+            child: CustomScrollView(
+                physics: const BouncingScrollPhysics(),
+                slivers: [
+                  SliverAppBar(
+                    title: Text(_title),
+                    actions: [
+                      IconButton(
+                          onPressed: () {
+                            setState(() {
+                              getDataFromAPI();
+                            });
+                          },
+                          icon: const Icon(Icons.autorenew)),
+                    ],
+                  ),
+                  SliverList(
+                    delegate: SliverChildListDelegate(
+                      [
+                        Container(
+                          margin: const EdgeInsets.all(10.0),
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: _imageFromAPI,
+                          ),
                         ),
+                      ],
                     ),
-                  ],
-                ),
-              )
-            ]
-          )
-    )
-    );
+                  )
+                ])));
   }
 }

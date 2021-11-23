@@ -15,6 +15,7 @@ class ImagePriview extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      
       appBar: AppBar(
         title: Text(title),
       ),
