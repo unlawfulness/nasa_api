@@ -5,26 +5,28 @@ import 'dart:convert';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:nasa_api/controllers/controllerPicsum.dart';
+import 'package:nasa_api/controllers/controllerNASA.dart';
 import 'package:nasa_api/models/model.dart';
 import 'package:nasa_api/screens/image_preview.dart';
 
-class PicsumPage extends StatefulWidget {
-  const PicsumPage({Key? key}) : super(key: key);
+class NasaPage extends StatefulWidget {
+  const NasaPage({Key? key}) : super(key: key);
 
   @override
-  State<PicsumPage> createState() => _PicsumPage();
+  State<NasaPage> createState() => _NasaPageState();
 }
 
-class _PicsumPage extends State<PicsumPage> {
+class _NasaPageState extends State<NasaPage> {
 
   final List<Widget> _imageFromAPI = [];
 
   void getDataFromAPI() {
-    var model = Model('https://picsum.photos/v2/list?page=2&limit=100');
-    var controller = ControllerPicsum(model.getDataFromApi(), context);
+    var model = Model('https://api.nasa.gov/planetary/apod?api_key=d1da9Wdg6K081MX0zwVNQZvbMmrpUfsJephBfVbv&count=30');
+    var controller = ControllerNasa(model.getDataFromApi(), context);
     _imageFromAPI.addAll(controller.getElements());
-    // var url = Uri.parse('https://picsum.photos/v2/list?page=2&limit=100');
+
+
+    // var url = Uri.parse('https://api.nasa.gov/planetary/apod?api_key=d1da9Wdg6K081MX0zwVNQZvbMmrpUfsJephBfVbv&count=10');
     // var response = await http.get(url);
     // // print('Response status: ${response.statusCode}');
     // // print('Response body: ${response.body}');
@@ -54,14 +56,15 @@ class _PicsumPage extends State<PicsumPage> {
     //             Navigator.push(
     //               context,
     //               MaterialPageRoute(
-    //                 builder: (context) => ImagePriview(imageURL: dat['download_url'], title: dat['author'],),
+    //                 builder: (context) => ImagePriview(imageURL: dat['url'], title: dat['title'],),
     //               ),
     //             );
     //           },
     //           child: Column(
     //             children: [
-    //               Image.network(dat['download_url'],
+    //               Image.network(dat['url'],
     //               ),
+    //               Text(dat['date']),
     //               Text(dat['title']),
     //             ],
     //           ),
@@ -76,8 +79,8 @@ class _PicsumPage extends State<PicsumPage> {
     //   print('Response status: ${response.statusCode}');
     //   print('Response body: ${response.body}');
     // }
-
-    //https://api.nasa.gov/planetary/apod?api_key=d1da9Wdg6K081MX0zwVNQZvbMmrpUfsJephBfVbv&count=10
+    //
+    // //https://api.nasa.gov/planetary/apod?api_key=d1da9Wdg6K081MX0zwVNQZvbMmrpUfsJephBfVbv&count=10
   }
 
   @override
@@ -88,7 +91,7 @@ class _PicsumPage extends State<PicsumPage> {
   @override
   Widget build(BuildContext context) {
 
-    String _title = 'Image from Lorem Picsum';
+    String _title = 'Image from NASA API';
 
     return RefreshIndicator(
             onRefresh: () {
