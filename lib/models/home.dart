@@ -1,14 +1,11 @@
 // ignore_for_file: avoid_print, must_call_super
 //фф
-import 'dart:convert';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:nasa_api/screens/image_preview.dart';
-import 'package:nasa_api/models/picsumPage.dart';
+import 'package:nasa_api/screens/picsumPage.dart';
 
-import 'nasaPage.dart';
+import '../screens/nasaPage.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
