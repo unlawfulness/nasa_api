@@ -8,13 +8,12 @@ class Model{
 
   Model(this.apiURL);
 
-  Future getDataFromApi() async {
+  Future<dynamic> getDataFromApi() async {
 
     var url = Uri.parse(apiURL);
     var response = await http.get(url);
-    // print('Response status: ${response.statusCode}');
-    // print('Response body: ${response.body}');
-    var data;
+
+    dynamic data;
     if (response.statusCode == 200) {
       data = json.decode(response.body);
     }else {
@@ -25,6 +24,6 @@ class Model{
     }
     return data;
 
-    //https://api.nasa.gov/planetary/apod?api_key=d1da9Wdg6K081MX0zwVNQZvbMmrpUfsJephBfVbv&count=10
   }
+  
 }

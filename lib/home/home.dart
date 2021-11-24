@@ -6,7 +6,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:nasa_api/screens/image_preview.dart';
-import 'package:nasa_api/screens/picsumPage.dart';
+import 'package:nasa_api/home/picsumPage.dart';
 
 import 'nasaPage.dart';
 
@@ -19,10 +19,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  final List<Widget> _imageFromAPI = [];
-
   int _page = 0;
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   @override
   void initState() {
@@ -31,17 +28,18 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    String _title = 'Image from NASA API';
-
     List<Widget> _widgetList = [
-      PicsumPage(),
-      NasaPage(),
+      const PicsumPage(),
+      const NasaPage(),
     ];
 
     return Scaffold(
+      extendBody: true,
         bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.blueAccent,
-          items: <Widget>[
+          color: Colors.blue.shade200,
+          backgroundColor: Colors.transparent,
+          buttonBackgroundColor: Colors.blue.shade200,
+          items: const <Widget>[
             Icon(Icons.filter_sharp, size: 30),
             Icon(Icons.star_outlined, size: 30),
           ],
@@ -50,6 +48,8 @@ class _HomeState extends State<Home> {
               _page = index;
             });
           },
+          animationDuration: const Duration(milliseconds: 400),
+          height: 60.0,
         ),
       body: _widgetList.elementAt(_page)
     );

@@ -2,8 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:nasa_api/home/home.dart';
 import 'package:nasa_api/home/nasaPage.dart';
-import 'package:nasa_api/screens/picsumPage.dart';
-//import 'package:nasa_api/screens/image_preview.dart';
+import 'package:nasa_api/home/picsumPage.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -13,8 +12,8 @@ void main() {
     initialRoute: '/',
     routes: {
       '/': (context) => const Home(),
-      '/picsumPage': (context) => PicsumPage(),
-      '/nasaPage': (context) => NasaPage(),
+      '/picsumPage': (context) => const PicsumPage(),
+      '/nasaPage': (context) => const NasaPage(),
     },
   ));
 }
