@@ -1,11 +1,12 @@
 // ignore_for_file: curly_braces_in_flow_control_structures, file_names
 
 import 'package:flutter/material.dart';
+import 'package:nasa_api/models/picsum_image.dart';
 import 'package:nasa_api/screens/image_preview.dart';
 
 class ControllerPicsum {
   
-  dynamic data;
+  List<PicsumImage> data;
   BuildContext context;
 
   ControllerPicsum(this.data, this.context);
@@ -13,7 +14,7 @@ class ControllerPicsum {
   List<Widget> getElements() {
     List<Widget> elements = [];
 
-    if (data != null) {
+    if (data.isNotEmpty) {
       for (var dat in data) {
         Widget elem = Column(
           children: [
@@ -35,15 +36,15 @@ class ControllerPicsum {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ImagePriview(
-                      imageURL: dat['download_url'],
-                      title: dat['author'],
+                      imageURL: dat.imageUrl,
+                      title: dat.title,
                     ),
                   ),
                 );
               },
               child: Column(
                 children: [
-                  Image.network(dat['download_url'], 
+                  Image.network(dat.imageUrl, 
                     loadingBuilder:
                       (BuildContext context, Widget child,
                           ImageChunkEvent? loadingProgress) {
@@ -59,7 +60,7 @@ class ControllerPicsum {
                       ),
                     );
                   }),
-                  Text(dat['author']),
+                  Text(dat.title),
                 ],
               ),
             ),

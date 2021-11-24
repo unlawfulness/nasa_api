@@ -6,7 +6,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:nasa_api/screens/image_preview.dart';
-import 'package:nasa_api/home/picsumPage.dart';
+import 'package:nasa_api/models/picsumPage.dart';
 
 import 'nasaPage.dart';
 
