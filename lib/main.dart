@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:nasa_api/models/home.dart';
-import 'package:nasa_api/models/nasaPage.dart';
-import 'package:nasa_api/models/picsumPage.dart';
+import 'package:nasa_api/screens/nasaPage.dart';
+import 'package:nasa_api/screens/picsumPage.dart';
 
 void main() {
   runApp(MaterialApp(

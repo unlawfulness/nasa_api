@@ -6,8 +6,9 @@ import 'package:nasa_api/models/picsum_image.dart';
 
 class PicsumApi{
   static Future<List<PicsumImage>> getPicsumImage(BuildContext context) async{
+
     //max page 34 
-    const apiURL = 'https://picsum.photos/v2/list?page=2&limit=100'; 
+    const apiURL = 'https://picsum.photos/v2/list?page=2&limit=30';
     var url = Uri.parse(apiURL);
     var response = await http.get(url);
     final body = json.decode(response.body);
